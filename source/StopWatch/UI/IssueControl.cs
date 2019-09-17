@@ -588,7 +588,7 @@ namespace StopWatch
 
                     // Let's round to 3 minutes!
                     // todo: take it out to Settings form
-                    TimeSpan elapsed = RoundUpTo3M(WatchTimer.TimeElapsedNearestMinute);
+                    TimeSpan elapsed = RoundUpTo3Or6M(WatchTimer.TimeElapsedNearestMinute);
 
                     PostAndReset(cbJira.Text, worklogForm.InitialStartTime, elapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
@@ -602,9 +602,11 @@ namespace StopWatch
             }
         }
 
-        private static TimeSpan RoundUpTo3M(TimeSpan timeSpan)
+        private static TimeSpan RoundUpTo3Or6M(TimeSpan timeSpan)
         {
-            return TimeSpan.FromMinutes((double)(Math.Ceiling((decimal)timeSpan.Minutes / 3) * 3));
+            var minutes = (decimal)timeSpan.Minutes;
+            int roundValue = minutes > 3 ? 6 : 3;
+            return TimeSpan.FromMinutes((double)(Math.Ceiling(minutes / roundValue) * roundValue));
         }
 
         private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
