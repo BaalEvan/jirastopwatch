@@ -586,7 +586,11 @@ namespace StopWatch
                     EstimateUpdateMethod = worklogForm.estimateUpdateMethod;
                     EstimateUpdateValue = worklogForm.EstimateValue;
 
-                    PostAndReset(cbJira.Text, worklogForm.InitialStartTime, WatchTimer.TimeElapsedNearestMinute, Comment, EstimateUpdateMethod, EstimateUpdateValue);
+                    // Let's round to 3 minutes!
+                    // todo: take it out to Settings form
+                    TimeSpan elapsed = RoundUpTo3M(WatchTimer.TimeElapsedNearestMinute);
+
+                    PostAndReset(cbJira.Text, worklogForm.InitialStartTime, elapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
                 else if (formResult == DialogResult.Yes)
                 {
@@ -596,6 +600,11 @@ namespace StopWatch
                     UpdateOutput();
                 }
             }
+        }
+
+        private static TimeSpan RoundUpTo3M(TimeSpan timeSpan)
+        {
+            return TimeSpan.FromMinutes((double)(Math.Ceiling((decimal)timeSpan.Minutes / 3) * 3));
         }
 
         private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)
