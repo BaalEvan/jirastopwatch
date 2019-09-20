@@ -122,16 +122,22 @@
         [Test]
         public void JiraTimeToTimeSpan_AllowsNoWhitespace()
         {
-            Assert.AreEqual(125, JiraTimeHelpers.JiraTimeToTimeSpan("2h5m").Value.TotalMinutes);
-            Assert.AreEqual(1565, JiraTimeHelpers.JiraTimeToTimeSpan("1d2h5m").Value.TotalMinutes);
+            Assert.AreEqual((0 * 8 + 2) * 60 + 5, JiraTimeHelpers.JiraTimeToTimeSpan("2h5m").Value.TotalMinutes);
+            Assert.AreEqual((1 * 8 + 2) * 60 + 5, JiraTimeHelpers.JiraTimeToTimeSpan("1d2h5m").Value.TotalMinutes);
         }
 
         [Test]
         public void JiraTimeToTimeSpan_AllowsDays()
         {
-            Assert.AreEqual(1565, JiraTimeHelpers.JiraTimeToTimeSpan("1d 2h 5m").Value.TotalMinutes);
-            Assert.AreEqual(1560, JiraTimeHelpers.JiraTimeToTimeSpan("1d 2h").Value.TotalMinutes);
-            Assert.AreEqual(1445, JiraTimeHelpers.JiraTimeToTimeSpan("1d 5m").Value.TotalMinutes);
+            Assert.AreEqual((1 * 8 + 2) * 60 + 5, JiraTimeHelpers.JiraTimeToTimeSpan("1d 2h 5m").Value.TotalMinutes);
+            Assert.AreEqual((1 * 8 + 2) * 60, JiraTimeHelpers.JiraTimeToTimeSpan("1d 2h").Value.TotalMinutes);
+            Assert.AreEqual((1 * 8) * 60 + 5, JiraTimeHelpers.JiraTimeToTimeSpan("1d 5m").Value.TotalMinutes);
+        }
+
+        [Test]
+        public void JiraTimeToTimeSpan_TwoDaysCheck()
+        {
+            Assert.AreEqual((2 * 8 + 1) * 60 + 4, JiraTimeHelpers.JiraTimeToTimeSpan("2d 1h 4m").Value.TotalMinutes);
         }
     }
 }

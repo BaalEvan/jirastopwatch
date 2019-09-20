@@ -103,7 +103,7 @@ namespace StopWatch
                     minutes += (int)(t * 60);
 
                 if (s.Contains("D"))
-                    minutes += (int)(t * 60 * 24);
+                    minutes += (int)(t * 60 * (decimal)(Configuration?.workingHoursPerDay ?? 8));
             }
 
             if (!validFormat)
