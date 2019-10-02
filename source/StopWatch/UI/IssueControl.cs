@@ -604,7 +604,7 @@ namespace StopWatch
 
         private static TimeSpan RoundUpTo3Or6M(TimeSpan timeSpan)
         {
-            var minutes = (decimal)timeSpan.Minutes;
+            var minutes = (decimal)timeSpan.TotalMinutes;
             int roundValue = minutes > 3 ? 6 : 3;
             return TimeSpan.FromMinutes((double)(Math.Ceiling(minutes / roundValue) * roundValue));
         }
