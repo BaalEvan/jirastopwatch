@@ -111,6 +111,13 @@ namespace StopWatch
 
             return new TimeSpan(minutes / 60, minutes % 60, 0);
         }
+
+        public static TimeSpan RoundUpTo6Or15M(TimeSpan timeSpan)
+        {
+            var totalMinutes = (decimal)timeSpan.TotalMinutes;
+            int roundValue = totalMinutes <= 6 ? 6 : 15;
+            return TimeSpan.FromMinutes((double)(Math.Ceiling(totalMinutes / roundValue) * roundValue));
+        }
     }
 }
 
