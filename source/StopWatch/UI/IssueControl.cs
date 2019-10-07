@@ -588,7 +588,7 @@ namespace StopWatch
 
                     // Let's round to 3 minutes!
                     // todo: take it out to Settings form
-                    TimeSpan elapsed = RoundUpTo3Or6M(WatchTimer.TimeElapsedNearestMinute);
+                    TimeSpan elapsed = JiraTimeHelpers.RoundUpTo6Or15M(WatchTimer.TimeElapsedNearestMinute);
 
                     PostAndReset(cbJira.Text, worklogForm.InitialStartTime, elapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
@@ -600,13 +600,6 @@ namespace StopWatch
                     UpdateOutput();
                 }
             }
-        }
-
-        private static TimeSpan RoundUpTo3Or6M(TimeSpan timeSpan)
-        {
-            var minutes = (decimal)timeSpan.TotalMinutes;
-            int roundValue = minutes > 3 ? 6 : 3;
-            return TimeSpan.FromMinutes((double)(Math.Ceiling(minutes / roundValue) * roundValue));
         }
 
         private void tbTime_MouseDoubleClick(object sender, MouseEventArgs e)

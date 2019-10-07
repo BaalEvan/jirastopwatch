@@ -133,5 +133,19 @@
             Assert.AreEqual(1560, JiraTimeHelpers.JiraTimeToTimeSpan("1d 2h").Value.TotalMinutes);
             Assert.AreEqual(1445, JiraTimeHelpers.JiraTimeToTimeSpan("1d 5m").Value.TotalMinutes);
         }
+
+        [Test]
+        public void JiraRoundUpTo6Or15M_Correct()
+        {
+            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 0, 1))));
+            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 1, 0))));
+            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 5, 0))));
+            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 6, 0))));
+            Assert.That(new TimeSpan(0, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 6, 1))));
+            Assert.That(new TimeSpan(0, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 15, 0))));
+            Assert.That(new TimeSpan(0, 30, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 15, 1))));
+            Assert.That(new TimeSpan(1, 0, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 59, 1))));
+            Assert.That(new TimeSpan(1, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 60, 1))));
+        }
     }
 }
