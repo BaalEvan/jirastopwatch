@@ -143,15 +143,18 @@
         [Test]
         public void JiraRoundUpTo6Or15M_Correct()
         {
-            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 0, 1))));
-            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 1, 0))));
-            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 5, 0))));
-            Assert.That(new TimeSpan(0, 6, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 6, 0))));
-            Assert.That(new TimeSpan(0, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 6, 1))));
-            Assert.That(new TimeSpan(0, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 15, 0))));
-            Assert.That(new TimeSpan(0, 30, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 15, 1))));
-            Assert.That(new TimeSpan(1, 0, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 59, 1))));
-            Assert.That(new TimeSpan(1, 15, 0), Is.EqualTo(JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(0, 60, 1))));
+            TimeSpan Round(int hours, int minutes, int seconds) =>
+                JiraTimeHelpers.RoundUpTo6Or15M(new TimeSpan(hours, minutes, seconds));
+
+            Assert.That(Round(0, 0, 1), Is.EqualTo(new TimeSpan(0, 6, 0)));
+            Assert.That(Round(0, 1, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));
+            Assert.That(Round(0, 5, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));
+            Assert.That(Round(0, 6, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));
+            Assert.That(Round(0, 6, 1), Is.EqualTo(new TimeSpan(0, 12, 0)));
+            Assert.That(Round(0, 15, 0), Is.EqualTo(new TimeSpan(0, 15, 0)));
+            Assert.That(Round(0, 15, 1), Is.EqualTo(new TimeSpan(0, 18, 0)));
+            Assert.That(Round(0, 59, 1), Is.EqualTo(new TimeSpan(1, 0, 0)));
+            Assert.That(Round(0, 60, 1), Is.EqualTo(new TimeSpan(1, 06, 0)));
         }
     }
 }
