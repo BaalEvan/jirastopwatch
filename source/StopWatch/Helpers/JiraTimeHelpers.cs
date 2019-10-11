@@ -121,9 +121,9 @@ namespace StopWatch
 
             var totalMinutes = (decimal)timeSpan.TotalMinutes;
             double roundedTo6 = RoundTo(totalMinutes, 6);
-            double roundedTo15 = RoundTo(totalMinutes, 15);
-            double roundedValue = Math.Min(roundedTo6, roundedTo15);
-            return TimeSpan.FromMinutes(roundedValue);
+            //double roundedTo15 = RoundTo(totalMinutes, 15);
+            //double roundedValue = Math.Min(roundedTo6, roundedTo15);
+            return TimeSpan.FromMinutes(roundedTo6);
         }
     }
 }
