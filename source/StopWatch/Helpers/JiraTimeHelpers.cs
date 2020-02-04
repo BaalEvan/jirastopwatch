@@ -112,7 +112,7 @@ namespace StopWatch
             return new TimeSpan(minutes / 60, minutes % 60, 0);
         }
 
-        public static TimeSpan RoundUpTo6Or12M(TimeSpan timeSpan)
+        public static TimeSpan RoundUpTo6or12or18M(TimeSpan timeSpan)
         {
             double RoundTo(decimal minutes, int roundTo)
             {
@@ -122,9 +122,9 @@ namespace StopWatch
             var totalMinutes = (decimal)timeSpan.TotalMinutes;
             double roundedTo6 = RoundTo(totalMinutes, 6);
             double roundedTo12 = RoundTo(totalMinutes, 12);
-            //double roundedTo15 = RoundTo(totalMinutes, 15);
-            //double roundedValue = Math.Min(roundedTo6, roundedTo15);
-            double roundedValue = totalMinutes <= 6 ? roundedTo6 : roundedTo12;
+            double roundedTo18 = RoundTo(totalMinutes, 18);
+            //double roundedValue = Math.Min(roundedTo6, roundedTo18);
+            double roundedValue = totalMinutes <= 6 ? roundedTo6 : totalMinutes <= 12 ? roundedTo12 : roundedTo18;
             return TimeSpan.FromMinutes(roundedValue);
         }
     }

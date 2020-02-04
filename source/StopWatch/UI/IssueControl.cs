@@ -588,7 +588,7 @@ namespace StopWatch
 
                     // Let's round to 3 minutes!
                     // todo: take it out to Settings form
-                    TimeSpan elapsed = JiraTimeHelpers.RoundUpTo6Or12M(WatchTimer.TimeElapsedNearestMinute);
+                    TimeSpan elapsed = JiraTimeHelpers.RoundUpTo6or12or18M(WatchTimer.TimeElapsedNearestMinute);
 
                     PostAndReset(cbJira.Text, worklogForm.InitialStartTime, elapsed, Comment, EstimateUpdateMethod, EstimateUpdateValue);
                 }
