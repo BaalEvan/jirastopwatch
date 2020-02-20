@@ -14,7 +14,9 @@ See the License for the specific language governing permissions and
 limitations under the License.
 **************************************************************************/
 using System;
+using System.Collections.Specialized;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace StopWatch
@@ -119,12 +121,27 @@ namespace StopWatch
                 return (double)(Math.Ceiling(minutes / roundTo) * roundTo);
             }
 
+            StringCollection roundingSettings = Properties.Settings.Default.Rounding;
+            var settingsData = from string setting in roundingSettings
+                let settingArray = setting.Split(';')
+                let minutesLimitStr = settingArray[0]
+                let rounding = int.Parse(settingArray[1])
+                let orderLast = minutesLimitStr == "*"
+                let minutesLimit = minutesLimitStr != "*" ? int.Parse(minutesLimitStr) : (int?)null
+                orderby orderLast, minutesLimit
+                select new { MinutesLimit  = minutesLimit, Rounding = rounding };
+
             var totalMinutes = (decimal)timeSpan.TotalMinutes;
-            double roundedTo6 = RoundTo(totalMinutes, 6);
+
+            int roundingValue = settingsData.First(sett => totalMinutes <= sett.MinutesLimit || sett.MinutesLimit == null)
+                .Rounding;
+
+            /*double roundedTo6 = RoundTo(totalMinutes, 6);
             double roundedTo12 = RoundTo(totalMinutes, 12);
-            double roundedTo15 = RoundTo(totalMinutes, 15);
+            double roundedTo15 = RoundTo(totalMinutes, 15);*/
             //double roundedValue = Math.Min(roundedTo6, roundedTo18);
-            double roundedValue = totalMinutes <= 6 ? roundedTo6 : totalMinutes <= 12 ? roundedTo12 : roundedTo15;
+            //double roundedValue = totalMinutes <= 6 ? roundedTo6 : totalMinutes <= 12 ? roundedTo12 : roundedTo15;
+            double roundedValue = RoundTo(totalMinutes, roundingValue);
             return TimeSpan.FromMinutes(roundedValue);
         }
     }
