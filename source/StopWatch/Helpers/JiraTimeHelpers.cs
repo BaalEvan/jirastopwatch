@@ -116,12 +116,13 @@ namespace StopWatch
 
         public static TimeSpan RoundUp(TimeSpan timeSpan)
         {
-            double RoundTo(decimal minutes, int roundTo)
+            double RoundTo(double minutes, int roundTo)
             {
                 return (double)(Math.Ceiling(minutes / roundTo) * roundTo);
             }
 
             StringCollection roundingSettings = Properties.Settings.Default.Rounding;
+            
             var settingsData = from string setting in roundingSettings
                 let settingArray = setting.Split(';')
                 let minutesLimitStr = settingArray[0]
@@ -133,15 +134,18 @@ namespace StopWatch
 
             var totalMinutes = (decimal)timeSpan.TotalMinutes;
 
-            int roundingValue = settingsData.First(sett => totalMinutes <= sett.MinutesLimit || sett.MinutesLimit == null)
-                .Rounding;
+            int roundingValue = settingsData.First(sett => totalMinutes <= sett.MinutesLimit || sett.MinutesLimit == null).Rounding;
 
             /*double roundedTo6 = RoundTo(totalMinutes, 6);
             double roundedTo12 = RoundTo(totalMinutes, 12);
             double roundedTo15 = RoundTo(totalMinutes, 15);*/
             //double roundedValue = Math.Min(roundedTo6, roundedTo18);
             //double roundedValue = totalMinutes <= 6 ? roundedTo6 : totalMinutes <= 12 ? roundedTo12 : roundedTo15;
-            double roundedValue = RoundTo(totalMinutes, roundingValue);
+            //double roundedValue = RoundTo(totalMinutes, roundingValue);
+
+            double effectiveMinutes = (double)totalMinutes * 1.25;
+            double roundedValue = RoundTo(effectiveMinutes, 6);
+
             return TimeSpan.FromMinutes(roundedValue);
         }
     }
