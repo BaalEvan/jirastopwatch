@@ -63,5 +63,8 @@
   &lt;string&gt;*;15&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="Multiplier" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1.20</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -148,16 +148,16 @@
 
             Assert.That(Round(0, 0, 1), Is.EqualTo(new TimeSpan(0, 6, 0)));
             Assert.That(Round(0, 1, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));
-            Assert.That(Round(0, 5, 0), Is.EqualTo(new TimeSpan(0, 12, 0)));
+            Assert.That(Round(0, 5, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));
             Assert.That(Round(0, 6, 0), Is.EqualTo(new TimeSpan(0, 12, 0)));
             Assert.That(Round(0, 6, 1), Is.EqualTo(new TimeSpan(0, 12, 0)));
-            Assert.That(Round(0, 15, 0), Is.EqualTo(new TimeSpan(0, 24, 0)));
+            Assert.That(Round(0, 15, 0), Is.EqualTo(new TimeSpan(0, 18, 0)));
             Assert.That(Round(0, 15, 1), Is.EqualTo(new TimeSpan(0, 24, 0)));
             Assert.That(Round(0, 18, 0), Is.EqualTo(new TimeSpan(0, 24, 0)));
             Assert.That(Round(0, 18, 1), Is.EqualTo(new TimeSpan(0, 24, 0)));
-            Assert.That(Round(0, 45, 0), Is.EqualTo(new TimeSpan(1, 0, 0)));
+            Assert.That(Round(0, 45, 0), Is.EqualTo(new TimeSpan(0, 54, 0)));
             Assert.That(Round(0, 45, 1), Is.EqualTo(new TimeSpan(1, 0, 0)));
-            Assert.That(Round(0, 59, 1), Is.EqualTo(new TimeSpan(1, 18, 0)));
+            Assert.That(Round(0, 59, 1), Is.EqualTo(new TimeSpan(1, 12, 0)));
             Assert.That(Round(0, 60, 1), Is.EqualTo(new TimeSpan(1, 18, 0)));
         }
     }
