@@ -144,7 +144,7 @@
         public void JiraRoundUpTo6Or125M_Correct()
         {
             TimeSpan Round(int hours, int minutes, int seconds) =>
-                JiraTimeHelpers.RoundUp(new TimeSpan(hours, minutes, seconds));
+                JiraTimeHelpers.RoundUp(new TimeSpan(hours, minutes, seconds), true);
 
             Assert.That(Round(0, 0, 1), Is.EqualTo(new TimeSpan(0, 6, 0)));
             Assert.That(Round(0, 1, 0), Is.EqualTo(new TimeSpan(0, 6, 0)));

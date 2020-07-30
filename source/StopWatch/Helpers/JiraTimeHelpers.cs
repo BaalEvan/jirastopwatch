@@ -114,11 +114,11 @@ namespace StopWatch
             return new TimeSpan(minutes / 60, minutes % 60, 0);
         }
 
-        public static TimeSpan RoundUp(TimeSpan timeSpan)
+        public static TimeSpan RoundUp(TimeSpan timeSpan, bool isCorrelation)
         {
             double RoundTo(double minutes, int roundTo)
             {
-                return (double)(Math.Ceiling(minutes / roundTo) * roundTo);
+                return Math.Ceiling(minutes / roundTo) * roundTo;
             }
 
             //StringCollection roundingSettings = Properties.Settings.Default.Rounding;
@@ -144,7 +144,7 @@ namespace StopWatch
             //double roundedValue = totalMinutes <= 6 ? roundedTo6 : totalMinutes <= 12 ? roundedTo12 : roundedTo15;
             //double roundedValue = RoundTo(totalMinutes, roundingValue);
 
-            var effectiveMinutes = (double)(totalMinutes * multiplier);
+            double effectiveMinutes = isCorrelation ? (double) (totalMinutes * multiplier) : (double) totalMinutes;
             double roundedValue = RoundTo(effectiveMinutes, 6);
 
             return TimeSpan.FromMinutes(roundedValue);

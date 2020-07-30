@@ -60,6 +60,7 @@ namespace StopWatch
             this.startDatePicker = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.startTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.chkCorrelation = new System.Windows.Forms.CheckBox();
             this.gbRemainingEstimate.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -247,6 +248,18 @@ namespace StopWatch
             this.startTimePicker.Size = new System.Drawing.Size(59, 20);
             this.startTimePicker.TabIndex = 13;
             // 
+            // chkCorrelation
+            // 
+            this.chkCorrelation.AutoSize = true;
+            this.chkCorrelation.Checked = true;
+            this.chkCorrelation.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkCorrelation.Location = new System.Drawing.Point(112, 340);
+            this.chkCorrelation.Name = "chkCorrelation";
+            this.chkCorrelation.Size = new System.Drawing.Size(76, 17);
+            this.chkCorrelation.TabIndex = 14;
+            this.chkCorrelation.Text = "Correlation";
+            this.chkCorrelation.UseVisualStyleBackColor = true;
+            // 
             // WorklogForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,6 +267,7 @@ namespace StopWatch
             this.AutoSize = true;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(321, 367);
+            this.Controls.Add(this.chkCorrelation);
             this.Controls.Add(this.startTimePicker);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.startDatePicker);
@@ -294,5 +308,6 @@ namespace StopWatch
         private DateTimePicker startDatePicker;
         private Label label1;
         private DateTimePicker startTimePicker;
+        private CheckBox chkCorrelation;
     }
 }

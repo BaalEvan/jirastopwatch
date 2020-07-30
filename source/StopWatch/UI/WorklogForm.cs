@@ -85,6 +85,9 @@ namespace StopWatch
                 RemainingEstimateUpdated();
             }
         }
+
+        public bool IsCorrelation => chkCorrelation.Checked;
+
         #endregion
 
 
